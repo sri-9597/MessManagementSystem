@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/JavaEEWebApp.iml" filepath="$PROJECT_DIR$/JavaEEWebApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mms.iml" filepath="$PROJECT_DIR$/mms.iml" />
     </modules>
   </component>
 </project>
-
