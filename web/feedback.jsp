@@ -176,6 +176,7 @@
 
 </style>
 <form action="feedback.jsp" style= "background-color: inherit ">
+    User id : <input type = "text" name="student_id">
     <div style="background-color: inherit ">
         <table style="background-color: inherit ">
             <tr style="background-color: inherit ">
@@ -226,66 +227,73 @@
             </tr>
         </table>
     </div>
-    <input type="text" name="comment">
+    Comment:<input type="text" name="comment">
     <input type="submit" value="submit">
+</form>
+<form action="feedback.jsp" style= "background-color: inherit ">
+
 </form>
 <table>
     <tr></tr>
     <tr></tr>
     <tr></tr>
 </table>
-<%@include file="footer.jsp"%>
-<%@ page import = "java.util.*" %>
-<%@ page import = "java.lang.*" %>
 <%@ page import="java.sql.*"%>
 <%@ page import="javax.sql.*"%>
-<%@ page import="java.sql.Connection" %>
-<%@ page import="com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ" %>
+<%@ page import = "java.util.*" %>
+<%@page import="java.text.*" %>
 <%
+    java.util.Date date = new java.util.Date();
+    SimpleDateFormat simpleDateformat = new SimpleDateFormat("dd/MM/yy");
+    String dt=simpleDateformat.format(date);
+
+    out.println(dt);
+
+    String student_id = request.getParameter("student_id");
     String quality_rt = request.getParameter("rating");
-    out.println(quality_rt);
     String cleanliness_rt = request.getParameter("rating1");
-    out.println(cleanliness_rt);
     String quantity_rt = request.getParameter("rating2");
-    out.println(quantity_rt);
     String hospitality_rt = request.getParameter("rating3");
-    out.println(hospitality_rt);
     String comment = request.getParameter("comment");
-    out.println(comment);
-    String sql="hi";
 
-        try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-            Connection con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.2.25:1521:orcl", "BCS65", "BCS65");
-            Statement ust = con.createStatement();
-            if(quality_rt!=null){
-                sql ="update OVERALL_REVIEW_FEEDBACK set QUALITY ="+quality_rt ;//+" where STUDENT_ID="+user_id+" and REVIEW_DATE = '"+pid + "'";
-                out.println("Updation Successful");
-                ust.executeUpdate(sql);
-            }
-
-            if(cleanliness_rt!=null) {
-                sql = "update OVERALL_REVIEW_FEEDBACK set CLEANLINESS =" + cleanliness_rt;//+" where STUDENT_ID="+user_id+" and REVIEW_DATE = '"+pid + "'";
-                out.println("Updation Successful  " + sql);
-                ust.executeUpdate(sql);
-            }
-            if(quantity_rt!=null){
-                sql ="update OVERALL_REVIEW_FEEDBACK set QUANTITY ="+quantity_rt ;//+" where STUDENT_ID="+user_id+" and REVIEW_DATE = '"+pid + "'";
-                out.println("Updation Successful  "+sql);
-                ust.executeUpdate(sql);
-            }
-            if(hospitality_rt!=null){
-                sql ="update OVERALL_REVIEW_FEEDBACK set HOSPITALITY ="+hospitality_rt ;//+" where STUDENT_ID="+user_id+" and REVIEW_DATE = '"+pid + "'";
-                out.println("Updation Successful  "+sql);
-                ust.executeUpdate(sql);
-            }
-            if(comment != null){
-                sql ="insert into comments values ("+ comment+")";
-                out.println("Insertion Successful  "+sql);
-                ust.executeUpdate(sql);
-            }
-
-        } catch (Exception e) {
-            out.println("Unsuccessful");
+    Class.forName("oracle.jdbc.driver.OracleDriver");
+    Connection con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.2.25:1521:orcl", "BCS65", "BCS65");
+    Statement st = con.createStatement();
+    String sql = "Select * from OVERALL_REVIEW_FEEDBACK where review_date='" + dt +"' and student_id = " + student_id;
+    //out.println(sql);
+    ResultSet rs = st.executeQuery(sql);
+    if(rs.next()){
+        //update query
+        if(quality_rt != null){
+            sql = "update OVERALL_REVIEW_FEEDBACK set quality = "+quality_rt ;
+            //out.println(sql);
+            st.executeUpdate(sql);
         }
+        if(cleanliness_rt != null){
+            sql = "update OVERALL_REVIEW_FEEDBACK set quality = "+cleanliness_rt ;
+            //out.println(sql);
+            st.executeUpdate(sql);
+        }
+        if(quantity_rt != null){
+            sql = "update OVERALL_REVIEW_FEEDBACK set quality = "+quantity_rt ;
+            //out.println(sql);
+            st.executeUpdate(sql);
+        }
+        if(hospitality_rt != null){
+            sql = "update OVERALL_REVIEW_FEEDBACK set quality = "+hospitality_rt ;
+            //out.println(sql);
+            st.executeUpdate(sql);
+        }
+    }
+    else if (student_id != null && dt != null){
+        //insert query
+        sql = "insert into OVERALL_REVIEW_FEEDBACK values ("+student_id+" , '"+ dt +"' , "+ quality_rt +"," + cleanliness_rt +"," +quantity_rt +"," +hospitality_rt +")";
+        st.executeUpdate(sql);
+    }
+    if(comment !=null){
+        sql = "insert into comments values ('"+ comment +"')";
+        st.executeUpdate(sql);
+    }
 %>
+
+<%@include file="footer.jsp"%>
