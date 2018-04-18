@@ -1,7 +1,11 @@
-<%@include file="hedder.jsp"%>
-<form method="post" action="student.jsp">
-    id : <input type="text" name="id" placeholder="ID number"/><br>
-    password : <input type="password" name="password" placeholder="password"><br>
-    <button type="submit">Submit</button>
-</form>
-<%@include file="footer.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Insert title here</title>
+</head>
+<body>
+
+</body>
+</html>

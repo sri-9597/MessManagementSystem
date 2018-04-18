@@ -1,5 +1,0 @@
-<html>
-<body>
-hi there
-</body>
-</html>
