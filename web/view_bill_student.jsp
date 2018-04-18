@@ -20,10 +20,10 @@ SimpleDateFormat ft = new SimpleDateFormat("dd.MM.yyyy");%>
     </thead>
 
 <%try{
-    //HttpSession session1 = request.getSession();
-//    String n = (String) session1.getAttribute("student_id");
-//    int id = Integer.parseInt(n);
-    int id = 18325;
+    HttpSession session1 = request.getSession();
+    String n = (String) session1.getAttribute("student_id");
+    int id = Integer.parseInt(n);
+//    int id = 18325;
     Class.forName("oracle.jdbc.driver.OracleDriver");
     Connection con = DriverManager.getConnection(
             "jdbc:oracle:thin:@192.168.2.25:1521:orcl", "BCS65", "BCS65");
