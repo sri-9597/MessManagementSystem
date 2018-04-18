@@ -1,5 +1,5 @@
 <%@ page import="java.sql.ResultSet" %>
-<%@include file="hedder.jsp"%>
+<%@include file="header.jsp"%>
 <style>
     table {
         margin: 0 auto;

@@ -1,3 +1,3 @@
-<%@include file="hedder.jsp"%>
+<%@include file="header.jsp"%>
 
 <%@include file="footer.jsp"%>
