@@ -12,6 +12,7 @@
         border: none;
         float: left;
     }
+    
 
     .rating1 {
         border: none;
